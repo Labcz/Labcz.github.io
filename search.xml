@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>IDEA大数据环境安装</title>
-    <url>/ckhnafzrj0001etfp2bo1eop5.html</url>
+    <url>/ckhnapxfh0001j9fpbrx55815.html</url>
     <content><![CDATA[<h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><h2 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h2><p>Scala下载：<a href="https://www.scala-lang.org/download/">https://www.scala-lang.org/download/</a></p>
 <p>Spark下载：<a href="https://mirrors.cloud.tencent.com/apache/spark/">https://mirrors.cloud.tencent.com/apache/spark/</a></p>
 <div class="note warning flat"><p>without-hadoop版本中不含编译好的hadoop，试用于Linux上已配置好hadoop环境</p>
@@ -107,7 +107,7 @@
   </entry>
   <entry>
     <title>Linux多节点环境打造</title>
-    <url>/ckhnafzrn0003etfp81yg9i41.html</url>
+    <url>/ckhnapxfm0003j9fp3w3ya1s6.html</url>
     <content><![CDATA[<h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><div class="note success no-icon flat"><p>1、提前安装  <a href="https://www.vmware.com/">VMware</a>虚拟机</p>
 <p>2、镜像下载：<a href="https://www.centos.org/download/">CentOS</a> 以及<a href="https://ubuntu.com/download/desktop">Ubuntu</a> 系统镜像</p>
 </div>
@@ -315,7 +315,7 @@
   </entry>
   <entry>
     <title>Linux软件安装管理</title>
-    <url>/ckhnafzrt0007etfpeudkb8b9.html</url>
+    <url>/ckhnapxfs0007j9fpaounetwl.html</url>
     <content><![CDATA[<h2 id="软件包的分类"><a href="#软件包的分类" class="headerlink" title="软件包的分类"></a>软件包的分类</h2><ul>
 <li><strong>源码包（.tar.gz)</strong><ul>
 <li>源码包的<strong>优点</strong><ul>
@@ -634,7 +634,7 @@
   </entry>
   <entry>
     <title>Hadoop安装</title>
-    <url>/ckhnafzsj000oetfpb4ks37p4.html</url>
+    <url>/ckhnapxh1000oj9fp4e29bodn.html</url>
     <content><![CDATA[<h1 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h1><h2 id="虚拟机联网"><a href="#虚拟机联网" class="headerlink" title="虚拟机联网"></a>虚拟机联网</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ping www.baidu.com  //PING外网测试</span><br><span class="line">PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.</span><br><span class="line">64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=1 ttl=128 time=25.4 ms</span><br></pre></td></tr></table></figure>
 
 <h2 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# systemctl stop iptables.service  //关闭防火墙</span><br><span class="line">[root@localhost ~]# systemctl status iptables.service  //检查防火墙状态</span><br><span class="line">● iptables.service - IPv4 firewall with iptables</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/iptables.service; disabled; vendor preset&gt;</span><br><span class="line">   Active: inactive (dead)</span><br><span class="line">lines 1-3/3 (END)...skipping...</span><br><span class="line">● iptables.service - IPv4 firewall with iptables</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/iptables.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: inactive (dead)</span><br></pre></td></tr></table></figure>
@@ -764,7 +764,7 @@
   </entry>
   <entry>
     <title>Linux常用命令合集</title>
-    <url>/ckhnafzsk000petfp7cdc2gfa.html</url>
+    <url>/ckhnapxh2000pj9fpaszf478j.html</url>
     <content><![CDATA[<h2 id="ls（查询目录中内容）"><a href="#ls（查询目录中内容）" class="headerlink" title="ls（查询目录中内容）"></a>ls（查询目录中内容）</h2><blockquote>
 <p><strong>格式：</strong><code>ls [选项] [文件或目录]</code></p>
 </blockquote>
@@ -1308,7 +1308,7 @@
   </entry>
   <entry>
     <title>玩转Git</title>
-    <url>/ckhnafzsm000setfp1llfgtcc.html</url>
+    <url>/ckhnapxh5000sj9fp9wwp3xh4.html</url>
     <content><![CDATA[<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h2 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h2><p>在实际开发中，我们会对项目进行多次的测试修改，以及将别人开发项目的部分合并，于是就会出现：</p>
 <img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/玩转Git/1.jpg" style="zoom:67%;" />
 
@@ -1730,7 +1730,7 @@
   </entry>
   <entry>
     <title>使用JAVA的API操作HDFS</title>
-    <url>/ckhnafztk0013etfp9stkbq8f.html</url>
+    <url>/ckhnapxhy0013j9fp2fbffp2m.html</url>
     <content><![CDATA[<h1 id="创建IDEA新项目"><a href="#创建IDEA新项目" class="headerlink" title="创建IDEA新项目"></a>创建IDEA新项目</h1><h2 id="创建新MAVEN项目"><a href="#创建新MAVEN项目" class="headerlink" title="创建新MAVEN项目"></a>创建新MAVEN项目</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/使用JAVA的API操作HDFS/1.png" style="zoom:100%;" />
 
 <img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/使用JAVA的API操作HDFS/2.png" style="zoom:67%;" />
