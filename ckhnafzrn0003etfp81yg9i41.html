@@ -1,0 +1,394 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux多节点环境打造 | LABCZ</title><meta name="keywords" content="Linux"><meta name="author" content="Labcz"><meta name="copyright" content="Labcz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="准备1、提前安装  VMware虚拟机 2、镜像下载：CentOS 以及Ubuntu 系统镜像   系统镜像推荐使用阿里云镜像站点下载: https:&#x2F;&#x2F;developer.aliyun.com&#x2F;mirror&#x2F;   本文使用：    虚拟机配置点击新建虚拟机  选择自定义安装  虚拟机兼容性选择这里要注意兼容性，如果是VMware15创建的虚拟机复制到VM11、10或者更低的版本会出现一不兼容的现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux多节点环境打造">
+<meta property="og:url" content="labcz.com/ckhnafzrn0003etfp81yg9i41.html">
+<meta property="og:site_name" content="LABCZ">
+<meta property="og:description" content="准备1、提前安装  VMware虚拟机 2、镜像下载：CentOS 以及Ubuntu 系统镜像   系统镜像推荐使用阿里云镜像站点下载: https:&#x2F;&#x2F;developer.aliyun.com&#x2F;mirror&#x2F;   本文使用：    虚拟机配置点击新建虚拟机  选择自定义安装  虚拟机兼容性选择这里要注意兼容性，如果是VMware15创建的虚拟机复制到VM11、10或者更低的版本会出现一不兼容的现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux多节点环境打造/cover.jpg">
+<meta property="article:published_time" content="2020-08-05T06:36:00.000Z">
+<meta property="article:modified_time" content="2020-09-11T02:01:12.000Z">
+<meta property="article:author" content="Labcz">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux多节点环境打造/cover.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="labcz.com/ckhnafzrn0003etfp81yg9i41"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?11aaeae6d02d5e6867d6d0c4176d2341";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"距离上次更新已经有","messageNext":"天, 这篇文章的部分内容可能已经过时了。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-09-11 10:01:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><link rel="stylesheet" href="/css/labcz.css"><meta name="generator" content="Hexo 5.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa-fw fab fa-font-awesome-flag"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa fa-paper-plane"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux多节点环境打造/cover.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LABCZ</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa-fw fab fa-font-awesome-flag"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa fa-paper-plane"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Linux多节点环境打造</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-05T06:36:00.000Z" title="发表于 2020-08-05 14:36:00">2020-08-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-09-11T02:01:12.000Z" title="更新于 2020-09-11 10:01:12">2020-09-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/ckhnafzrn0003etfp81yg9i41.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/ckhnafzrn0003etfp81yg9i41.html" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><div class="note success no-icon flat"><p>1、提前安装  <a target="_blank" rel="noopener" href="https://www.vmware.com/">VMware</a>虚拟机</p>
+<p>2、镜像下载：<a target="_blank" rel="noopener" href="https://www.centos.org/download/">CentOS</a> 以及<a target="_blank" rel="noopener" href="https://ubuntu.com/download/desktop">Ubuntu</a> 系统镜像</p>
+</div>
+
+<div class="note info flat"><p>系统镜像推荐使用阿里云镜像站点下载: <a target="_blank" rel="noopener" href="https://developer.aliyun.com/mirror/">https://developer.aliyun.com/mirror/</a></p>
+</div>
+
+<p>本文使用：</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/Linux01.png" style="zoom:67%;" /> 
+
+<h1 id="虚拟机配置"><a href="#虚拟机配置" class="headerlink" title="虚拟机配置"></a>虚拟机配置</h1><h2 id="点击新建虚拟机"><a href="#点击新建虚拟机" class="headerlink" title="点击新建虚拟机"></a>点击新建虚拟机</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step1.png" style="zoom:67%;" />
+
+<h2 id="选择自定义安装"><a href="#选择自定义安装" class="headerlink" title="选择自定义安装"></a>选择<code>自定义安装</code></h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step2.png" style="zoom:67%;" />
+
+<h2 id="虚拟机兼容性选择"><a href="#虚拟机兼容性选择" class="headerlink" title="虚拟机兼容性选择"></a>虚拟机兼容性选择</h2><p>这里要注意兼容性，如果是VMware15创建的虚拟机复制到VM11、10或者更低的版本会出现一不兼容的现象。如果是用VMware12创建的虚拟机在VMware15中打开则不会出现兼容性问题</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step3.png" style="zoom:67%;" />
+
+<h2 id="选择稍后安装操作系统"><a href="#选择稍后安装操作系统" class="headerlink" title="选择稍后安装操作系统"></a>选择<code>稍后安装操作系统</code></h2><h2 id="选择操作系统"><a href="#选择操作系统" class="headerlink" title="选择操作系统"></a>选择操作系统</h2><p><strong>5、选择操作系统</strong></p>
+<p>这里选择之后安装的操作系统，正确的选择会让VM Tools更好的兼容。这里选择linux下的CentOS</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step5.png" style="zoom:67%;" />
+
+<h2 id="选择虚拟机位置与命名"><a href="#选择虚拟机位置与命名" class="headerlink" title="选择虚拟机位置与命名"></a>选择虚拟机位置与命名</h2><p>为该虚拟机就是一个名字，便于快速查找</p>
+<div class="note warning flat"><p>虚拟机默认安装在C盘下，由于占用存储较大，建议更换安装路径</p>
+</div>
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step6.png" style="zoom:67%;" />
+
+<h2 id="处理器与内存的分配"><a href="#处理器与内存的分配" class="headerlink" title="处理器与内存的分配"></a>处理器与内存的分配</h2><p>处理器分配要根据自己的实际需求来分配。在使用过程中CPU不够的话是可以再增加的。这次只做安装CentOS演示，所以处理器与核心都选1</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step7.png" style="zoom:67%;" />
+
+<h2 id="选择虚拟机内存"><a href="#选择虚拟机内存" class="headerlink" title="选择虚拟机内存"></a>选择虚拟机内存</h2><p>内存也是要根据实际的需求分配，这里选择配置1GB</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step8.png" style="zoom:67%;" />
+
+<h2 id="选择网络类型"><a href="#选择网络类型" class="headerlink" title="选择网络类型"></a>选择网络类型</h2><blockquote>
+<p>网络连接类型一共有桥接、NAT、仅主机和不联网四种。</p>
+<p>桥接：选择桥接模式的话虚拟机和宿主机在网络上就是平级的关系，相当于连接在同一交换机上。</p>
+<p>NAT：NAT模式就是虚拟机要联网得先通过宿主机才能和外面进行通信。</p>
+<p>仅主机：虚拟机与宿主机直接连起来</p>
+</blockquote>
+<p>按照默认选择<code>使用网络地址转换(NAT)</code></p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step9.png" style="zoom:67%;" />
+
+<h2 id="选择I-O控制器类型，选择默认推荐类型LSI-Logic"><a href="#选择I-O控制器类型，选择默认推荐类型LSI-Logic" class="headerlink" title="选择I/O控制器类型，选择默认推荐类型LSI Logic"></a>选择I/O控制器类型，选择默认推荐类型<code>LSI Logic</code></h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step10.png" style="zoom:67%;" />
+
+<h2 id="选择磁盘类型，选择默认推荐类型SCSI"><a href="#选择磁盘类型，选择默认推荐类型SCSI" class="headerlink" title="选择磁盘类型，选择默认推荐类型SCSI"></a>选择磁盘类型，选择默认推荐类型<code>SCSI</code></h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step11.png" style="zoom:67%;" />
+
+<h2 id="选择磁盘，选择默认推荐类型创建新虚拟磁盘"><a href="#选择磁盘，选择默认推荐类型创建新虚拟磁盘" class="headerlink" title="选择磁盘，选择默认推荐类型创建新虚拟磁盘"></a>选择磁盘，选择默认推荐类型<code>创建新虚拟磁盘</code></h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step12.png" style="zoom:67%;" />
+
+<h2 id="选择磁盘容量，选择默认推荐大小为20GB"><a href="#选择磁盘容量，选择默认推荐大小为20GB" class="headerlink" title="选择磁盘容量，选择默认推荐大小为20GB"></a>选择磁盘容量，选择默认推荐大小为20GB</h2><div class="note warning flat"><p><strong>同时选择<code>将虚拟磁盘拆分成多个文件</code></strong></p>
+<p><strong>磁盘容量暂时分配20GB即可后期可以随时增加，<code>不要</code>勾选<code>立即分配所有磁盘</code>，否则虚拟机会将20GB直接分配给CentOS，会导致宿主机所剩硬盘容量减少。 勾选将虚拟磁盘拆分成多个文件，这样可以使虚拟机方便用储存设备拷贝复制。</strong></p>
+</div>
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step13.png" style="zoom:67%;" />
+
+<h2 id="指定磁盘文件，按照默认即可"><a href="#指定磁盘文件，按照默认即可" class="headerlink" title="指定磁盘文件，按照默认即可"></a>指定磁盘文件，按照默认即可</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step14.png" style="zoom:67%;" />
+
+<h2 id="自定义硬件"><a href="#自定义硬件" class="headerlink" title="自定义硬件"></a>自定义硬件</h2><div class="note info flat"><p>可将不必要的硬件，例如：声卡，打印机，USB控制器移除，加快系统运行效率</p>
+</div>
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step15.png" style="zoom:67%;" />
+
+<div class="note danger flat"><p>选择<code>新CD/DVD(IDE)</code>由<code>自动检测</code>改为<code>准备好的iso系统镜像文件</code>，否则将系统无法正常安装</p>
+</div>
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step16.png" style="zoom:67%;" />
+
+<p>最后点击完成，完成虚拟机配置</p>
+<h1 id="安装操作系统"><a href="#安装操作系统" class="headerlink" title="安装操作系统"></a>安装操作系统</h1><h2 id="开启此虚拟机"><a href="#开启此虚拟机" class="headerlink" title="开启此虚拟机"></a>开启此虚拟机</h2><blockquote>
+<p>开启虚拟机后会出现以下界面:</p>
+<ul>
+<li>Install CentOS Linux 8 安装CentOS 8</li>
+<li>Test this media &amp; install CentOS Linux 8 测试安装文件并安装CentOS 8</li>
+<li>Troubleshooting 修复故障</li>
+</ul>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins1.png" alt="ins1" style="zoom:67%;" />
+
+<p>通过键盘<kbd>↑</kbd> <kbd>↓</kbd> 方向键选择<code>Install CentOS Linux 8</code>进入安装页面</p>
+<h2 id="进入语言选择界面"><a href="#进入语言选择界面" class="headerlink" title="进入语言选择界面"></a>进入语言选择界面</h2><p>选择安装过程中使用的语言，这里选择英文、键盘选择美式键盘。点击<code>Continue</code></p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins2.png" alt="ins1" style="zoom:67%;" />
+
+<h2 id="进入时区选择界面"><a href="#进入时区选择界面" class="headerlink" title="进入时区选择界面"></a>进入时区选择界面</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins3.png" alt="ins1" style="zoom:67%;" />
+
+<blockquote>
+<p>时区选择 <code>Asia</code>  <code>Shanghai</code>,  选择完成后点击<code>Done</code>返回安装界面</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins4.png" alt="ins1" style="zoom:67%;" />
+
+<h2 id="进入软件选择界面"><a href="#进入软件选择界面" class="headerlink" title="进入软件选择界面"></a>进入软件选择界面</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins5.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins6.png" alt="ins1" style="zoom:67%;" />
+
+<div class="note info flat"><p>可根据自己需求选择所需功能，一般选择<code>Minimal install</code>(最小安装)，后期可根据自己需要进行安装软件，所选软件包越多，安装过程越慢</p>
+</div>
+
+<h2 id="选择安装位置"><a href="#选择安装位置" class="headerlink" title="选择安装位置"></a>选择安装位置</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins7.png" alt="ins1" style="zoom:67%;" />
+
+<blockquote>
+<p>选择<code>Automatic</code>,自动进行分区</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins8.png" alt="ins1" style="zoom:67%;" />
+
+<h2 id="返回主界面，点击Begin-Installation-开始安装"><a href="#返回主界面，点击Begin-Installation-开始安装" class="headerlink" title="返回主界面，点击Begin Installation,开始安装"></a>返回主界面，点击<code>Begin Installation</code>,开始安装</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins9.png" alt="ins1" style="zoom:67%;" />
+
+<blockquote>
+<p>安装过程中可以进行Root用户的密码设置，用户创建可以稍后在进行设置</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins10.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins11.png" alt="ins1" style="zoom:67%;" />
+
+<h2 id="安装完成后点击Reboot-重启系统"><a href="#安装完成后点击Reboot-重启系统" class="headerlink" title="安装完成后点击Reboot,重启系统"></a>安装完成后点击<code>Reboot</code>,重启系统</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins12.png" alt="ins1" style="zoom:67%;" />
+
+<h2 id="输入正确的用户名及密码进入系统"><a href="#输入正确的用户名及密码进入系统" class="headerlink" title="输入正确的用户名及密码进入系统"></a>输入正确的用户名及密码进入系统</h2><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins13.png" alt="ins1"  />
+
+<h1 id="多节点配置"><a href="#多节点配置" class="headerlink" title="多节点配置"></a>多节点配置</h1><h2 id="联网设置"><a href="#联网设置" class="headerlink" title="联网设置"></a>联网设置</h2><div class="note danger flat"><p>系统安装完成后，无法联网，需要进行配置</p>
+</div>
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins14.png" alt="ins1"  />
+
+<div class="note danger flat"><p>输入<code>ifconfig</code>命令查看当前系统的IP地址，显示该命令不存在，可通过 <code>ip addr</code>命令进行查询</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># dhclient //动态分配一个IP地址</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ip addr</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: ens32: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">    link/ether 00:0c:29:21:60:cf brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.229.131/24 brd 192.168.229.255 scope global noprefixroute ens32</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::b3fe:4e78:1f73:8d81/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+</div>
+
+<div class="note info flat"><p>若最小安装导致<code>ifconfig</code>命令失效的情况下，且能够连接外网情况下，可以下载net-tools，重新获取该命令，若该命令未失效可忽略该提示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># yum install net-tools -y </span></span><br></pre></td></tr></table></figure>
+</div>
+
+<h2 id="设置固定IP"><a href="#设置固定IP" class="headerlink" title="设置固定IP"></a>设置固定IP</h2><div class="note info flat"><p>通过<code>dhclient</code>获得的是DHCP分配的动态IP，重启系统后IP地址可能会与之前不一样，不利于多设备集群和记忆</p>
+</div>
+
+<p><strong>进入“编辑”—“虚拟网络编辑器”</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/new1.png" alt="new1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/new2.png" alt="ins1" />
+
+<p><strong>进入网卡编辑状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># vi /etc/sysconfig/network-scripts/ifcfg-ens32 </span></span><br><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=ens32</span><br><span class="line">UUID=7f2efaef-c748-4180-98e9-384af604b6fc</span><br><span class="line">DEVICE=ens32</span><br><span class="line">ONBOOT=no</span><br></pre></td></tr></table></figure>
+
+<p>按<kbd>i</kbd>进入文本编辑状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">修改</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">ONBOOT=yes</span><br><span class="line">添加（根据虚拟网络编辑器NAT设置进行相应修改）</span><br><span class="line">IPADDR=192.168.229.131 //该IP为dhclient获取的IP地址</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.229.2 </span><br><span class="line">DNS=119.29.29.29    //腾讯的DNS地址</span><br></pre></td></tr></table></figure>
+
+<p>按<kbd>ESC</kbd>退出文本编辑状态，输入<code>：wq</code>保存退出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># nmcli c reload  //CentOS 8 重启网卡</span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl restart network-service  //CentOS 7 重启网卡</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="检查是否配置成功"><a href="#检查是否配置成功" class="headerlink" title="检查是否配置成功"></a>检查是否配置成功</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># ping baidu.com   //虚拟机PING通外网</span></span><br><span class="line">PING baidu.com (220.181.38.148) 56(84) bytes of data.</span><br><span class="line">64 bytes from 220.181.38.148 (220.181.38.148): icmp_seq=1 ttl=52 time=36.4 ms</span><br><span class="line">64 bytes from 220.181.38.148 (220.181.38.148): icmp_seq=2 ttl=52 time=35.9 ms</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\<span class="title">Users</span>\<span class="title">Labcz</span>&gt;<span class="title">ping</span> 192.168.0.106  //宿主机<span class="title">PING</span>通虚拟机</span></span><br><span class="line"><span class="function">正在 <span class="title">Ping</span> 192.168.0.106 具有 32 字节的数据:</span></span><br><span class="line"><span class="function">来自 192.168.0.106 的回复: 字节=32 时间&lt;1<span class="title">ms</span> <span class="title">TTL</span>=64</span></span><br><span class="line"><span class="function">来自 192.168.0.106 的回复: 字节=32 时间&lt;1<span class="title">ms</span> <span class="title">TTL</span>=64</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># ping 192.168.229.131 //虚拟机PING通宿主机</span></span><br><span class="line">PING 192.168.229.131 (192.168.229.131) 56(84) bytes of data.</span><br></pre></td></tr></table></figure>
+
+<div class="note danger flat"><p>若虚拟机无法PING通宿主机，需要对宿主机进行防火墙设置</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins16.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins17.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins18.png" alt="ins1" style="zoom:67%;" />
+
+<p>运行入站连接</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins19.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/ins20.png" alt="ins1" style="zoom:67%;" />
+
+<p>将否改为是（右侧启用规则）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># ping 192.168.0.103 //虚拟机成功PING通宿主机</span></span><br><span class="line">PING 192.168.0.103 (192.168.0.103) 56(84) bytes of data.</span><br><span class="line">64 bytes from 192.168.0.103: icmp_seq=1 ttl=128 time=0.208 ms</span><br><span class="line">64 bytes from 192.168.0.103: icmp_seq=2 ttl=128 time=0.224 ms</span><br><span class="line">64 bytes from 192.168.0.103: icmp_seq=3 ttl=128 time=0.268 ms</span><br></pre></td></tr></table></figure>
+</div>
+
+<h2 id="虚拟机客克隆-创建"><a href="#虚拟机客克隆-创建" class="headerlink" title="虚拟机客克隆/创建"></a>虚拟机客克隆/创建</h2><p>可通过虚拟机克隆快速完成多节点虚拟机的配置，若希望打造不同系统虚拟机节点，可以重复上述流程进行新建虚拟机</p>
+<p>通过右击需要克隆的虚拟机，“管理”—“克隆”</p>
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step17.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step18.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step19.png" alt="ins1" style="zoom:67%;" />
+
+<img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/Linux多节点环境打造/step20.png" alt="ins1" style="zoom:67%;" />
+
+<h2 id="多节点设置固定IP地址"><a href="#多节点设置固定IP地址" class="headerlink" title="多节点设置固定IP地址"></a>多节点设置固定IP地址</h2><p>进入虚拟机后通过<code>dhclient</code>命令获取系统分配地址后，修改<code>/etc/sysconfig/network-scripts/ifcfg-ens32 </code>网卡的IP地址</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# dhclient //动态分配一个IP地址</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# ifconfig</span><br><span class="line">ens32: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 192.168.229.132  netmask 255.255.255.0  broadcast 192.168.229.255</span><br><span class="line">        inet6 fe80::3400:5b95:b6d1:cc3d  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        inet6 fe80::b3fe:4e78:1f73:8d81  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 00:0c:29:67:3e:41  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 69  bytes 8693 (8.4 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 78  bytes 10266 (10.0 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line">        </span><br><span class="line">[root@localhost ~]# vi /etc/sysconfig/network-scripts/ifcfg-ens32</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=ens32</span><br><span class="line">UUID=7f2efaef-c748-4180-98e9-384af604b6fc</span><br><span class="line">DEVICE=ens32</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR=192.168.229.132 //修改为分配后的IP地址</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.229.2</span><br><span class="line">DNS1=119.29.29.29        </span><br></pre></td></tr></table></figure>
+
+<p>网络连接测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ping www.baidu.com  //外网PING测试</span><br><span class="line">PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.</span><br><span class="line">64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=1 ttl=128 time=25.9 ms</span><br><span class="line">64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=2 ttl=128 time=24.9 ms</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# ping 192.168.229.131  //另一部虚拟机PING测试</span><br><span class="line">PING 192.168.229.131 (192.168.229.131) 56(84) bytes of data.</span><br><span class="line">64 bytes from 192.168.229.131: icmp_seq=1 ttl=64 time=1.16 ms</span><br><span class="line">64 bytes from 192.168.229.131: icmp_seq=2 ttl=64 time=0.362 ms</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://labcz.com">Labcz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://labcz.com">https://labcz.com</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归LABCZ所有，如有转载，请注明来自原作者。</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux多节点环境打造/cover.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/ckhnafzsk000petfp7cdc2gfa.html"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Linux常用命令合集</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/ckhnafzrj0001etfp2bo1eop5.html" title="IDEA大数据环境安装"><img class="cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/IDEA大数据环境安装/bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-13</div><div class="title">IDEA大数据环境安装</div></div></a></div><div><a href="/ckhnafzrt0007etfpeudkb8b9.html" title="Linux软件安装管理"><img class="cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-07</div><div class="title">Linux软件安装管理</div></div></a></div><div><a href="/ckhnafzsj000oetfpb4ks37p4.html" title="Hadoop安装"><img class="cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN@1.0.10/passages/Hadoop安装/hadoop.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-11</div><div class="title">Hadoop安装</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Labcz</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Labcz"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Labcz" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:labczwork@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">虚拟机配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%B9%E5%87%BB%E6%96%B0%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.1.</span> <span class="toc-text">点击新建虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">选择自定义安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%85%BC%E5%AE%B9%E6%80%A7%E9%80%89%E6%8B%A9"><span class="toc-number">2.3.</span> <span class="toc-text">虚拟机兼容性选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%A8%8D%E5%90%8E%E5%AE%89%E8%A3%85%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.4.</span> <span class="toc-text">选择稍后安装操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.5.</span> <span class="toc-text">选择操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%8D%E7%BD%AE%E4%B8%8E%E5%91%BD%E5%90%8D"><span class="toc-number">2.6.</span> <span class="toc-text">选择虚拟机位置与命名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E9%85%8D"><span class="toc-number">2.7.</span> <span class="toc-text">处理器与内存的分配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98"><span class="toc-number">2.8.</span> <span class="toc-text">选择虚拟机内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%BD%91%E7%BB%9C%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.9.</span> <span class="toc-text">选择网络类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9I-O%E6%8E%A7%E5%88%B6%E5%99%A8%E7%B1%BB%E5%9E%8B%EF%BC%8C%E9%80%89%E6%8B%A9%E9%BB%98%E8%AE%A4%E6%8E%A8%E8%8D%90%E7%B1%BB%E5%9E%8BLSI-Logic"><span class="toc-number">2.10.</span> <span class="toc-text">选择I&#x2F;O控制器类型，选择默认推荐类型LSI Logic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%A3%81%E7%9B%98%E7%B1%BB%E5%9E%8B%EF%BC%8C%E9%80%89%E6%8B%A9%E9%BB%98%E8%AE%A4%E6%8E%A8%E8%8D%90%E7%B1%BB%E5%9E%8BSCSI"><span class="toc-number">2.11.</span> <span class="toc-text">选择磁盘类型，选择默认推荐类型SCSI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%A3%81%E7%9B%98%EF%BC%8C%E9%80%89%E6%8B%A9%E9%BB%98%E8%AE%A4%E6%8E%A8%E8%8D%90%E7%B1%BB%E5%9E%8B%E5%88%9B%E5%BB%BA%E6%96%B0%E8%99%9A%E6%8B%9F%E7%A3%81%E7%9B%98"><span class="toc-number">2.12.</span> <span class="toc-text">选择磁盘，选择默认推荐类型创建新虚拟磁盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E7%A3%81%E7%9B%98%E5%AE%B9%E9%87%8F%EF%BC%8C%E9%80%89%E6%8B%A9%E9%BB%98%E8%AE%A4%E6%8E%A8%E8%8D%90%E5%A4%A7%E5%B0%8F%E4%B8%BA20GB"><span class="toc-number">2.13.</span> <span class="toc-text">选择磁盘容量，选择默认推荐大小为20GB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%EF%BC%8C%E6%8C%89%E7%85%A7%E9%BB%98%E8%AE%A4%E5%8D%B3%E5%8F%AF"><span class="toc-number">2.14.</span> <span class="toc-text">指定磁盘文件，按照默认即可</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%A1%AC%E4%BB%B6"><span class="toc-number">2.15.</span> <span class="toc-text">自定义硬件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">安装操作系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E6%AD%A4%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">3.1.</span> <span class="toc-text">开启此虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E8%AF%AD%E8%A8%80%E9%80%89%E6%8B%A9%E7%95%8C%E9%9D%A2"><span class="toc-number">3.2.</span> <span class="toc-text">进入语言选择界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E6%97%B6%E5%8C%BA%E9%80%89%E6%8B%A9%E7%95%8C%E9%9D%A2"><span class="toc-number">3.3.</span> <span class="toc-text">进入时区选择界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9%E7%95%8C%E9%9D%A2"><span class="toc-number">3.4.</span> <span class="toc-text">进入软件选择界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%AE%89%E8%A3%85%E4%BD%8D%E7%BD%AE"><span class="toc-number">3.5.</span> <span class="toc-text">选择安装位置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E4%B8%BB%E7%95%8C%E9%9D%A2%EF%BC%8C%E7%82%B9%E5%87%BBBegin-Installation-%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85"><span class="toc-number">3.6.</span> <span class="toc-text">返回主界面，点击Begin Installation,开始安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E7%82%B9%E5%87%BBReboot-%E9%87%8D%E5%90%AF%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.7.</span> <span class="toc-text">安装完成后点击Reboot,重启系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E5%8F%8A%E5%AF%86%E7%A0%81%E8%BF%9B%E5%85%A5%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.8.</span> <span class="toc-text">输入正确的用户名及密码进入系统</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E8%8A%82%E7%82%B9%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">多节点配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%94%E7%BD%91%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.1.</span> <span class="toc-text">联网设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP"><span class="toc-number">4.2.</span> <span class="toc-text">设置固定IP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E9%85%8D%E7%BD%AE%E6%88%90%E5%8A%9F"><span class="toc-number">4.3.</span> <span class="toc-text">检查是否配置成功</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%A2%E5%85%8B%E9%9A%86-%E5%88%9B%E5%BB%BA"><span class="toc-number">4.4.</span> <span class="toc-text">虚拟机客克隆&#x2F;创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E8%8A%82%E7%82%B9%E8%AE%BE%E7%BD%AE%E5%9B%BA%E5%AE%9AIP%E5%9C%B0%E5%9D%80"><span class="toc-number">4.5.</span> <span class="toc-text">多节点设置固定IP地址</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzsm000setfp1llfgtcc.html" title="玩转Git"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/玩转Git/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玩转Git"/></a><div class="content"><a class="title" href="/ckhnafzsm000setfp1llfgtcc.html" title="玩转Git">玩转Git</a><time datetime="2020-11-11T14:50:00.000Z" title="发表于 2020-11-11 22:50:00">2020-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafztk0013etfp9stkbq8f.html" title="使用JAVA的API操作HDFS"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/使用JAVA的API操作HDFS/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用JAVA的API操作HDFS"/></a><div class="content"><a class="title" href="/ckhnafztk0013etfp9stkbq8f.html" title="使用JAVA的API操作HDFS">使用JAVA的API操作HDFS</a><time datetime="2020-10-30T07:17:00.000Z" title="发表于 2020-10-30 15:17:00">2020-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzrj0001etfp2bo1eop5.html" title="IDEA大数据环境安装"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/IDEA大数据环境安装/bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IDEA大数据环境安装"/></a><div class="content"><a class="title" href="/ckhnafzrj0001etfp2bo1eop5.html" title="IDEA大数据环境安装">IDEA大数据环境安装</a><time datetime="2020-10-13T06:45:00.000Z" title="发表于 2020-10-13 14:45:00">2020-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzsj000oetfpb4ks37p4.html" title="Hadoop安装"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN@1.0.10/passages/Hadoop安装/hadoop.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hadoop安装"/></a><div class="content"><a class="title" href="/ckhnafzsj000oetfpb4ks37p4.html" title="Hadoop安装">Hadoop安装</a><time datetime="2020-09-11T03:36:00.000Z" title="发表于 2020-09-11 11:36:00">2020-09-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzrt0007etfpeudkb8b9.html" title="Linux软件安装管理"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux软件安装管理"/></a><div class="content"><a class="title" href="/ckhnafzrt0007etfpeudkb8b9.html" title="Linux软件安装管理">Linux软件安装管理</a><time datetime="2020-08-07T02:13:10.000Z" title="发表于 2020-08-07 10:13:10">2020-08-07</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux多节点环境打造/cover.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 By Labcz</div><div class="footer_custom_text"><script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script><span id="hitokoto"></span></div><div class="icp"><a target="_blank" rel="noopener" href="http://www.beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png" alt="ICP"/><span>赣ICP备20002738号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'MM1CQ3RqIy4n3EPt9QYrVJDs-MdYXbMMI',
+      appKey: 'dIwky9uuaVfu9f3UWNQKIAmA',
+      placeholder: '请开始你的表演，请文明发言哦！',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/labcz.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>

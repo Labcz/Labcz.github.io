@@ -1,0 +1,505 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Linux软件安装管理 | LABCZ</title><meta name="keywords" content="Linux,Shell"><meta name="author" content="Labcz"><meta name="copyright" content="Labcz"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="软件包的分类 源码包（.tar.gz) 源码包的优点 1）开源，如果有足够的能力，可以修改源代码 2）可以自由选择所需的功能 3）软件是编译安装，所有更加适合自己的系统，更加稳定也效率更高 4）卸载方便   源码包的缺点 1）安装过程步骤较多，尤其安装较大的软件集合是（如LAMP环境搭建），容易出现拼写错误 2）编译过程时间较长，安装比二进制安装时间长 3）因为是编译安装，安装过程中一旦报错新手很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux软件安装管理">
+<meta property="og:url" content="labcz.com/ckhnafzrt0007etfpeudkb8b9.html">
+<meta property="og:site_name" content="LABCZ">
+<meta property="og:description" content="软件包的分类 源码包（.tar.gz) 源码包的优点 1）开源，如果有足够的能力，可以修改源代码 2）可以自由选择所需的功能 3）软件是编译安装，所有更加适合自己的系统，更加稳定也效率更高 4）卸载方便   源码包的缺点 1）安装过程步骤较多，尤其安装较大的软件集合是（如LAMP环境搭建），容易出现拼写错误 2）编译过程时间较长，安装比二进制安装时间长 3）因为是编译安装，安装过程中一旦报错新手很">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png">
+<meta property="article:published_time" content="2020-08-07T02:13:10.000Z">
+<meta property="article:modified_time" content="2020-08-07T02:18:59.000Z">
+<meta property="article:author" content="Labcz">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="labcz.com/ckhnafzrt0007etfpeudkb8b9"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?11aaeae6d02d5e6867d6d0c4176d2341";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":500,"position":"top","messagePrev":"距离上次更新已经有","messageNext":"天, 这篇文章的部分内容可能已经过时了。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-07 10:18:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><link rel="stylesheet" href="/css/labcz.css"><meta name="generator" content="Hexo 5.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa-fw fab fa-font-awesome-flag"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa fa-paper-plane"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">LABCZ</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa-fw fab fa-font-awesome-flag"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/artitalk/"><i class="fa-fw fa-fw fa fa-paper-plane"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Linux软件安装管理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-07T02:13:10.000Z" title="发表于 2020-08-07 10:13:10">2020-08-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-07T02:18:59.000Z" title="更新于 2020-08-07 10:18:59">2020-08-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Linux/">Linux</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/ckhnafzrt0007etfpeudkb8b9.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/ckhnafzrt0007etfpeudkb8b9.html" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="软件包的分类"><a href="#软件包的分类" class="headerlink" title="软件包的分类"></a>软件包的分类</h2><ul>
+<li><strong>源码包（.tar.gz)</strong><ul>
+<li>源码包的<strong>优点</strong><ul>
+<li>1）开源，如果有足够的能力，可以修改源代码</li>
+<li>2）可以自由选择所需的功能</li>
+<li>3）软件是编译安装，所有更加适合自己的系统，更加稳定也效率更高</li>
+<li>4）卸载方便</li>
+</ul>
+</li>
+<li>源码包的<strong>缺点</strong><ul>
+<li>1）安装过程步骤较多，尤其安装较大的软件集合是（如LAMP环境搭建），容易出现拼写错误</li>
+<li>2）编译过程时间较长，安装比二进制安装时间长</li>
+<li>3）因为是编译安装，安装过程中一旦报错新手很难解决</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>二进制包（RPM包，系统默认包）</strong><ul>
+<li>RPM包的<strong>优点</strong><ul>
+<li>1）包管理系统简单，只通过几个命令就可以实现包的安装、升级、查询和卸载</li>
+<li>2）安装速度比源码包安装快的多</li>
+</ul>
+</li>
+<li>RPM包的<strong>缺点</strong><ul>
+<li>1）经过编译，不再可以看到源代码</li>
+<li>2）功能选择不如源码包灵活</li>
+<li>3）依赖性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>脚本安装包</strong>（所谓的脚本安装包，就是把复杂的软件包安装过程写成了程序脚本，初学者可以执行程序脚本实现一键安装，但实际安装的还是源码包和二进制包）<ul>
+<li><strong>优点</strong>：安装简单快捷</li>
+<li><strong>缺点</strong>：完全丧失自定义性</li>
+</ul>
+</li>
+</ul>
+<h2 id="RPM包介绍"><a href="#RPM包介绍" class="headerlink" title="RPM包介绍"></a>RPM包介绍</h2><ul>
+<li>RPM包命名规则（httpd-2.2.15-15.el6.centos.1.i686.rpm）<ul>
+<li>httpd   软件包名</li>
+<li>2.2.15  软件版本</li>
+<li>15   软件发布的次数</li>
+<li>-el6.centos  适合Linux平台</li>
+<li>i686  适合的硬件平台</li>
+<li>rpm  包拓展名</li>
+</ul>
+</li>
+<li><strong>RPM包依赖性</strong><ul>
+<li>树形依赖：a→b→c</li>
+<li>环形依赖：a→b→c→a</li>
+<li>模块依赖：模块依赖，查询网站：<a target="_blank" rel="noopener" href="http://www.rpmfind.net/">www.rpmfind.net</a></li>
+</ul>
+</li>
+<li><strong>包全名</strong>和<strong>包名</strong><ul>
+<li><strong>包全名</strong>：操作的包是没有安装的软件包时，使用包全面，而且要注意路径</li>
+<li><strong>包名</strong>：操作以及安装的软件包时，使用包命是搜索/var/lib/rpm/中的数据库</li>
+</ul>
+</li>
+</ul>
+<p>RPM包一般在光盘镜像中，可以进入/mnt/cdrom/AppSteam/Packages（不同Linux版本Pacakges目录存放位置不同）</p>
+<p>查看光盘镜像中RPM包需要挂载光盘，可查看mount命令</p>
+<h2 id="RPM包安装"><a href="#RPM包安装" class="headerlink" title="RPM包安装"></a>RPM包安装</h2><blockquote>
+<p>格式：<code>rpm –ivh 包全名</code></p>
+</blockquote>
+<ul>
+<li>选项<ul>
+<li>-i（install）安装</li>
+<li>-v（verbose）显示详细信息</li>
+<li>-h（hash）显示进度</li>
+<li>–nodeps 不检测依赖性</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Packages]$rpm -ivh httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64.rpm </span><br><span class="line">警告：httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID 8483c65d: NOKEY</span><br><span class="line">错误：依赖检测失败：</span><br><span class="line">    httpd-filesystem 被 httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64 需要</span><br><span class="line">    httpd-filesystem = 2.4.37-11.module_el8.0.0+172+85fc1f40 被 httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64 需要</span><br><span class="line">    httpd-tools = 2.4.37-11.module_el8.0.0+172+85fc1f40 被 httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64 需要</span><br><span class="line">    libapr-1.so.0()(64bit) 被 httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64 需要</span><br><span class="line">    libaprutil-1.so.0()(64bit) 被 httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64 需要</span><br><span class="line">    mod_http2 被 httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64 需要</span><br><span class="line">    system-logos-httpd 被 httpd-2.4.37-11.module_el8.0.0+172+85fc1f40.x86_64 需要</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>注：安装RPM包会报依赖性错误</em></strong></p>
+<p><strong>RPM包默认安装位置</strong></p>
+<table>
+<thead>
+<tr>
+<th>安装目录</th>
+<th>对应文件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/etc</td>
+<td>配置文件安装目录</td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>可执行的目录安装目录</td>
+</tr>
+<tr>
+<td>/usr/lib</td>
+<td>程序所使用的函数库保存位置</td>
+</tr>
+<tr>
+<td>/usr/share/doc</td>
+<td>基本的软件使用手册保存位置</td>
+</tr>
+<tr>
+<td>/usr/share/man</td>
+<td>帮助文件保存位置</td>
+</tr>
+</tbody></table>
+<h2 id="查询RPM包详细信息"><a href="#查询RPM包详细信息" class="headerlink" title="查询RPM包详细信息"></a>查询RPM包详细信息</h2><blockquote>
+<p>格式：<code>rpm –qi 包名</code></p>
+</blockquote>
+<ul>
+<li><p>选项：</p>
+<ul>
+<li><p>-q（query）  查询信息</p>
+</li>
+<li><p>-i（information）查询软件信息</p>
+</li>
+<li><p>-p（package）查询**<em>未安装包**</em>信息</p>
+</li>
+<li><p>-a（all）所有</p>
+</li>
+<li><p>-f（file）查询系统文件属于哪个软件包</p>
+</li>
+<li><p>-R（requires）查询软件包的依赖性</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rpm -q 包名 #查询是否安装</span><br><span class="line">rpm -qa #查询所有已经安装的RPM包</span><br><span class="line">rpm -qi httpd  #查看已安装包的信息</span><br><span class="line">rpm -qip zenity-3.28.1-1.el8.x86_64.rpm    #查看未安装包的信息</span><br><span class="line">rpm -ql httpd  #查看RPM包中内容</span><br><span class="line">rpm -qlp zenity-3.28.1-1.el8.x86_64.rpm  #查看未安装包中内容</span><br><span class="line">rpm -qf /usr/share/zenity/zenity.ui #查询系统文件属于哪个RPM包</span><br><span class="line">rpm -qR 包名  #查询软件包的依赖性</span><br></pre></td></tr></table></figure>
+
+<h2 id="RPM包校验"><a href="#RPM包校验" class="headerlink" title="RPM包校验"></a>RPM包校验</h2><blockquote>
+<p>格式：<code>rpm –V 已安装的包名</code></p>
+</blockquote>
+<p>选项：-V（vertify）校验指定的RPM包中的文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Packages]# rpm -V gcc  #一般情况下输入该命令不会有提示</span><br><span class="line">[root@localhost Packages]# </span><br></pre></td></tr></table></figure>
+
+<p>但是如果修改了配置文件，将会提示错误</p>
+<ul>
+<li><p>找到gcc的配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql gcc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>随意进入一个配置文件，进行修改</p>
+</li>
+<li><p>再次执行RPM包校验将会提示错误</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Packages]# rpm -V gcc</span><br><span class="line">S.5....T.    &#x2F;usr&#x2F;bin&#x2F;c89</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>验证内容中8个信息的具体内容如下：</strong><ul>
+<li>S  文件大小是否改变</li>
+<li>M  文件的类型或文件的权限（rwx）是否被改变  </li>
+<li>5  文件MD5校验和恶是否改变（可以看成文件内容是否改变）</li>
+<li>D  设备的主从代码是否改变</li>
+<li>L  文件路径是否改变</li>
+<li>U  文件的属主（所有者）是否改变</li>
+<li>G  文件的属组是否改变</li>
+<li>T  文件的修改时间是否改变</li>
+</ul>
+</li>
+<li><strong>文件类型</strong><ul>
+<li>c  配置文件（config file）</li>
+<li>d  普通文档（documentation）</li>
+<li>g  “鬼”文件（ghost file），很少见，就是该文件不应该被这个RPM包包含</li>
+<li>L  授权文件（license file）</li>
+<li>r  描述文件（read me）</li>
+</ul>
+</li>
+</ul>
+<h2 id="RPM包中文件提取"><a href="#RPM包中文件提取" class="headerlink" title="RPM包中文件提取"></a>RPM包中文件提取</h2><blockquote>
+<p>格式：<code>rpm2cpio 包全名 | cpio –idv .文件绝对路径</code></p>
+</blockquote>
+<p>作用：若误删了某个命令，可以进行恢复</p>
+<p><strong>rpm2cpio</strong>:将rpm包转换为cpio格式的命令</p>
+<p><strong>cpio</strong>:一个标准工具，它用于创建软件档案文档和从档案文件中提取文件</p>
+<ul>
+<li>选项<ul>
+<li>-i  copy-in模式，还原</li>
+<li>-d  还原时自动新建目录</li>
+<li>-v  显示还原过程</li>
+</ul>
+</li>
+</ul>
+<p>1）找到/bin/ls对应的RPM包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost Packages]# rpm -qf &#x2F;bin&#x2F;ls</span><br><span class="line">coreutils-8.30-6.el8.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>2）误删除ls目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost tmp]# mv /bin/ls /tmp/</span><br><span class="line">[root@localhost tmp]# ls</span><br><span class="line">-bash: /usr/bin/ls: 没有那个文件或目录</span><br></pre></td></tr></table></figure>
+
+<p>3）从RPM包提取出对应文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm2cpio /mnt/cdrom/BaseOS/Packages/coreutils-8.30-6.el8.x86_64.rpm |cpio -idv ./bin/ls</span><br></pre></td></tr></table></figure>
+
+<h2 id="RPM包升级"><a href="#RPM包升级" class="headerlink" title="RPM包升级"></a>RPM包升级</h2><blockquote>
+<p>格式：<code>rpm –Uvh 包全名</code></p>
+</blockquote>
+<p>选项：-U（upgrade）升级</p>
+<p><strong>若已安装则升级，若未安装则安装</strong></p>
+<h2 id="RPM包卸载"><a href="#RPM包卸载" class="headerlink" title="RPM包卸载"></a>RPM包卸载</h2><blockquote>
+<p>格式：<code>rpm –evh 包全名</code></p>
+</blockquote>
+<ul>
+<li>选项<ul>
+<li>-e（erase）卸载</li>
+<li>–nodeps 不检测依赖性</li>
+</ul>
+</li>
+</ul>
+<h2 id="yum在线安装"><a href="#yum在线安装" class="headerlink" title="yum在线安装"></a>yum在线安装</h2><ul>
+<li>优点：将所有软件包放到官方服务器上，当进行yum在线安装时，可以自动解决依赖性问题。</li>
+</ul>
+<p><strong>注意：RedHat的yum在线安装需要收费</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@labcz ~]# cd /etc/yum.repos.d/  #yum配置目录</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@labcz yum.repos.d]# vim CentOS-Base.repo </span><br><span class="line"></span><br><span class="line">[base]</span><br><span class="line">name=CentOS-$releasever</span><br><span class="line">enabled=1</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.cloud.aliyuncs.com/centos/$releasever/os/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://mirrors.cloud.aliyuncs.com/centos/RPM-GPG-KEY-CentOS-7</span><br><span class="line"></span><br><span class="line">[updates]</span><br><span class="line">name=CentOS-$releasever</span><br><span class="line">enabled=1</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.cloud.aliyuncs.com/centos/$releasever/updates/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://mirrors.cloud.aliyuncs.com/centos/RPM-GPG-KEY-CentOS-7</span><br><span class="line"></span><br><span class="line">[extras]</span><br><span class="line">name=CentOS-$releasever</span><br><span class="line">enabled=1</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.cloud.aliyuncs.com/centos/$releasever/extras/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://mirrors.cloud.aliyuncs.com/centos/RPM-GPG-KEY-CentOS-7</span><br></pre></td></tr></table></figure>
+
+<p>默认只有CentO-Base.repo生效，其他的yum源（.repo)不生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpgkey&#x3D;file:&#x2F;&#x2F;&#x2F;etc&#x2F;pki&#x2F;rpm-gpg&#x2F;RPM-GPG-KEY-centosofficial</span><br></pre></td></tr></table></figure>
+
+<p><code>file://</code>:表示文件的一个协议</p>
+<p>/：根目录</p>
+<ul>
+<li>各属性解释<ul>
+<li>[base]      容器名称，一定要放在[ ]中</li>
+<li>name       容器说明，可以自己随便填写</li>
+<li>mirrorlist   镜像站点，这个可以注释掉</li>
+<li>baseurl     我们的yum源服务器的地址，可自行修改</li>
+<li>enabled    此容器是否生效，如果不写或写成enable=1都是              生效，写成enable=0就是不生效</li>
+<li>gpgcheck   如果是1是指RPM的数字证书生效，如果是0则不生效</li>
+<li>pgpkey     数字证数的公钥文件保存位置，不用修改</li>
+</ul>
+</li>
+</ul>
+<h2 id="搭建光盘yum源"><a href="#搭建光盘yum源" class="headerlink" title="搭建光盘yum源"></a>搭建光盘yum源</h2><ul>
+<li><p>1）挂载光盘</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/cdrom  #建立挂载点</span><br><span class="line">mount  /dev/sr0  /mnt/cdrom #挂载光盘</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2）使网络yum源失效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d/  #进入yum源目录</span><br><span class="line">mv CentOS-Base.repo  CentOS-Base.repo.bak</span><br><span class="line"><span class="meta">#</span><span class="bash">修改yum源文件后缀名，使其失效</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>3）修改CentOS-Media.repo文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">base=file:///mnt/cdrom #改为自己的光盘挂载点</span><br><span class="line">enabled=1  #改为1使其有效</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="常用yum命令"><a href="#常用yum命令" class="headerlink" title="常用yum命令"></a>常用yum命令</h2><ul>
+<li><p><strong>查询</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum list #查询所有可用的软件包列表</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum search 关键字 #搜索服务器上所有和关键字相关的包</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安装</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum –y install 包名 #-y 自动应答，install 安装</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>升级</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum –y update 包名  #-y 自动应答，update 升级</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>卸载</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum –y remove 包名  #-y 自动应答，remove 卸载</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>yum软件组管理</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">[root@labcz yum.repos.d]# yum grouplist #列出所有可用的软件组列表</span><br><span class="line">Loaded plugins: fastestmirror</span><br><span class="line">There is no installed groups file.</span><br><span class="line">Maybe run: yum groups mark convert (see man yum)</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line">Available Environment Groups:</span><br><span class="line">   Minimal Install</span><br><span class="line">   Compute Node</span><br><span class="line">   Infrastructure Server</span><br><span class="line">   File and Print Server</span><br><span class="line">   Cinnamon Desktop</span><br><span class="line">   MATE Desktop</span><br><span class="line">   Basic Web Server</span><br><span class="line">   Virtualization Host</span><br><span class="line">   Server with GUI</span><br><span class="line">   GNOME Desktop</span><br><span class="line">   KDE Plasma Workspaces</span><br><span class="line">   Development and Creative Workstation</span><br><span class="line">Available Groups:</span><br><span class="line">   Cinnamon</span><br><span class="line">   Compatibility Libraries</span><br><span class="line">   Console Internet Tools</span><br><span class="line">   Development Tools</span><br><span class="line">   Educational Software</span><br><span class="line">   Electronic Lab</span><br><span class="line">   Fedora Packager</span><br><span class="line">   General Purpose Desktop</span><br><span class="line">   Graphical Administration Tools</span><br><span class="line">   Haskell</span><br><span class="line">   LXQt Desktop</span><br><span class="line">   Legacy UNIX Compatibility</span><br><span class="line">   MATE</span><br><span class="line">   Milkymist</span><br><span class="line">   Scientific Support</span><br><span class="line">   Security Tools</span><br><span class="line">   Smart Card Support</span><br><span class="line">   System Administration Tools</span><br><span class="line">   System Management</span><br><span class="line">   TurboGears application framework</span><br><span class="line">   Xfce</span><br><span class="line">Done</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall 软件组名</span><br><span class="line"><span class="meta">#</span><span class="bash">安装指定软件组，组名可以由grouplist查询出来(组名需要使用英文)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupremove 软件组名  #卸载指定的软件组</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LANG=en_US  #切换为英语查看软件组名</span><br><span class="line">LANG=zh_CN.utf8 #切换回中文</span><br><span class="line">(只是临时修改，永久修改需要修改环境变量)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="源码包简介"><a href="#源码包简介" class="headerlink" title="源码包简介"></a>源码包简介</h2><ul>
+<li><p><strong>源码包与RPM包的区别</strong></p>
+<ul>
+<li>安装之前的区别：概念上的区别</li>
+<li>安装之后的区别：安装位置不同</li>
+</ul>
+</li>
+<li><p><strong>安装位置不同带来的影响</strong></p>
+<p>RPM包安装的服务可以使用系统服务管理命令（service）来管理，例如RPM包安装的Apache的启动方式是：</p>
+<p><code>etc/rc.d/init.d/httpd start</code></p>
+<p><code>service httpd start</code></p>
+</li>
+<li><p><strong>源码包安装位置</strong></p>
+<p>安装在指定位置当中，一般是：<code>/usr/local/软件名/</code></p>
+<p>源码包安装的服务不能被服务管理命令管理，因为没有安装到默认路径中，所以只能用绝对路径进行服务的管理</p>
+<p>如：<code>usr/local/apache2/bin/apachectl start</code></p>
+</li>
+</ul>
+<h2 id="源码包安装"><a href="#源码包安装" class="headerlink" title="源码包安装"></a>源码包安装</h2><ul>
+<li><p>1）下载源码包</p>
+</li>
+<li><p>2）解压缩源码包</p>
+</li>
+<li><p>3）进入解压缩目录</p>
+</li>
+<li><p>4）<code>./configure</code> 软件配置与检查</p>
+<ul>
+<li>定义需要的功能选项</li>
+<li>检测系统环境是否符合安装要求</li>
+<li>把定义好的功能选项和检测系统环境的信息都写入Makefile文件，用于后续的编辑</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/apache #自定义安装目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>5）<code>make</code>编译（若编译错误，使用<code>make clean</code>)</p>
+</li>
+<li><p>6）<code>make install</code>编译安装</p>
+</li>
+</ul>
+<h2 id="源码包卸载"><a href="#源码包卸载" class="headerlink" title="源码包卸载"></a>源码包卸载</h2><p>不需要卸载命令，直接删除安装目录即可，不会遗留任何垃圾文件</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://labcz.com">Labcz</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://labcz.com">https://labcz.com</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归LABCZ所有，如有转载，请注明来自原作者。</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linux/">Linux</a><a class="post-meta__tags" href="/tags/Shell/">Shell</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/ckhnafzsj000oetfpb4ks37p4.html"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN@1.0.10/passages/Hadoop安装/hadoop.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Hadoop安装</div></div></a></div><div class="next-post pull-right"><a href="/ckhnafzsk000petfp7cdc2gfa.html"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Linux常用命令合集</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/ckhnafzsk000petfp7cdc2gfa.html" title="Linux常用命令合集"><img class="cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-06</div><div class="title">Linux常用命令合集</div></div></a></div><div><a href="/ckhnafzrj0001etfp2bo1eop5.html" title="IDEA大数据环境安装"><img class="cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/IDEA大数据环境安装/bg.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-10-13</div><div class="title">IDEA大数据环境安装</div></div></a></div><div><a href="/ckhnafzrn0003etfp81yg9i41.html" title="Linux多节点环境打造"><img class="cover" src="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux多节点环境打造/cover.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-05</div><div class="title">Linux多节点环境打造</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/Labcz/CDN/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Labcz</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Labcz"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Labcz" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:labczwork@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">软件包的分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPM%E5%8C%85%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">RPM包介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPM%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">RPM包安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2RPM%E5%8C%85%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF"><span class="toc-number">4.</span> <span class="toc-text">查询RPM包详细信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPM%E5%8C%85%E6%A0%A1%E9%AA%8C"><span class="toc-number">5.</span> <span class="toc-text">RPM包校验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPM%E5%8C%85%E4%B8%AD%E6%96%87%E4%BB%B6%E6%8F%90%E5%8F%96"><span class="toc-number">6.</span> <span class="toc-text">RPM包中文件提取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPM%E5%8C%85%E5%8D%87%E7%BA%A7"><span class="toc-number">7.</span> <span class="toc-text">RPM包升级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RPM%E5%8C%85%E5%8D%B8%E8%BD%BD"><span class="toc-number">8.</span> <span class="toc-text">RPM包卸载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yum%E5%9C%A8%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-number">9.</span> <span class="toc-text">yum在线安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E5%85%89%E7%9B%98yum%E6%BA%90"><span class="toc-number">10.</span> <span class="toc-text">搭建光盘yum源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8yum%E5%91%BD%E4%BB%A4"><span class="toc-number">11.</span> <span class="toc-text">常用yum命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%8C%85%E7%AE%80%E4%BB%8B"><span class="toc-number">12.</span> <span class="toc-text">源码包简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-number">13.</span> <span class="toc-text">源码包安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E5%8C%85%E5%8D%B8%E8%BD%BD"><span class="toc-number">14.</span> <span class="toc-text">源码包卸载</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzsm000setfp1llfgtcc.html" title="玩转Git"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/玩转Git/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玩转Git"/></a><div class="content"><a class="title" href="/ckhnafzsm000setfp1llfgtcc.html" title="玩转Git">玩转Git</a><time datetime="2020-11-11T14:50:00.000Z" title="发表于 2020-11-11 22:50:00">2020-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafztk0013etfp9stkbq8f.html" title="使用JAVA的API操作HDFS"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/使用JAVA的API操作HDFS/cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用JAVA的API操作HDFS"/></a><div class="content"><a class="title" href="/ckhnafztk0013etfp9stkbq8f.html" title="使用JAVA的API操作HDFS">使用JAVA的API操作HDFS</a><time datetime="2020-10-30T07:17:00.000Z" title="发表于 2020-10-30 15:17:00">2020-10-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzrj0001etfp2bo1eop5.html" title="IDEA大数据环境安装"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN/passages/IDEA大数据环境安装/bg.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IDEA大数据环境安装"/></a><div class="content"><a class="title" href="/ckhnafzrj0001etfp2bo1eop5.html" title="IDEA大数据环境安装">IDEA大数据环境安装</a><time datetime="2020-10-13T06:45:00.000Z" title="发表于 2020-10-13 14:45:00">2020-10-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzsj000oetfpb4ks37p4.html" title="Hadoop安装"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN@1.0.10/passages/Hadoop安装/hadoop.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hadoop安装"/></a><div class="content"><a class="title" href="/ckhnafzsj000oetfpb4ks37p4.html" title="Hadoop安装">Hadoop安装</a><time datetime="2020-09-11T03:36:00.000Z" title="发表于 2020-09-11 11:36:00">2020-09-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/ckhnafzrt0007etfpeudkb8b9.html" title="Linux软件安装管理"><img src="https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux软件安装管理"/></a><div class="content"><a class="title" href="/ckhnafzrt0007etfpeudkb8b9.html" title="Linux软件安装管理">Linux软件安装管理</a><time datetime="2020-08-07T02:13:10.000Z" title="发表于 2020-08-07 10:13:10">2020-08-07</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/gh/Labcz/CDN@latest/passages/Linux常用命令合集/bash.png)"><div id="footer-wrap"><div class="copyright">&copy;2020 By Labcz</div><div class="footer_custom_text"><script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script><span id="hitokoto"></span></div><div class="icp"><a target="_blank" rel="noopener" href="http://www.beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png" alt="ICP"/><span>赣ICP备20002738号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'MM1CQ3RqIy4n3EPt9QYrVJDs-MdYXbMMI',
+      appKey: 'dIwky9uuaVfu9f3UWNQKIAmA',
+      placeholder: '请开始你的表演，请文明发言哦！',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign({}, initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/js/labcz.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script></div></body></html>
